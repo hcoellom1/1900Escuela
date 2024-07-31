@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import hn.unah.lenguajes.escuela.modelos.Cursos;
 import hn.unah.lenguajes.escuela.modelos.Direccion;
 import hn.unah.lenguajes.escuela.modelos.Maestro;
 import hn.unah.lenguajes.escuela.repositorios.DireccionRepositorio;
@@ -27,15 +28,20 @@ public class MaestroServicio {
         if(this.maestroRepositorio.existsById(nvMaestro.getCodigoMaestro())){
             return null;
         }
-        
-        Maestro maestroGuardar = this.maestroRepositorio.save(nvMaestro);
-
+                
         Direccion direccion = nvMaestro.getDireccion();
-        direccion.setMaestro(maestroGuardar);
-
-        this.direccionRepositorio.save(direccion);
-
-        return maestroGuardar;
+        if(direccion !=null ){
+            direccion.setMaestro(nvMaestro);
+        }
+            
+        List<Cursos> cursos = nvMaestro.getCursos();
+        if(cursos != null){
+            for(Cursos curso:cursos){
+               curso.setMaestro(nvMaestro); 
+            }            
+        }
+        
+        return this.maestroRepositorio.save(nvMaestro);     
     }
 
     
