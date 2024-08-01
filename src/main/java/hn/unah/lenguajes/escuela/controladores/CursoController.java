@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import hn.unah.lenguajes.escuela.modelos.Cursos;
-import hn.unah.lenguajes.escuela.modelos.Maestro;
+import hn.unah.lenguajes.escuela.repositorios.CursosRepositorio;
 import hn.unah.lenguajes.escuela.servicios.CursosServicio;
 
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +19,7 @@ public class CursoController {
 
     @Autowired
     private CursosServicio cursosServicio;
+    
 
     @PostMapping("/asociar/{codigo}")
     public Cursos asociarMaestro(@PathVariable(name="codigo") String codigo,
